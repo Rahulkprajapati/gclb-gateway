@@ -1,0 +1,18 @@
+apiVersion: networking.gke.io/v1
+kind: MultiClusterIngress
+metadata:
+  name: foobar-ingress
+  namespace: multi-cluster-demo
+spec:
+  template:
+    spec:
+      backend:
+        serviceName: default-backend
+        servicePort: 8080
+      rules:
+      - host: foo.example.com
+        http:
+          paths:
+            - backend:
+                serviceName: foo
+                servicePort: 8080
