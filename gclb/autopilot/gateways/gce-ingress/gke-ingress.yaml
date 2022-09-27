@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gke-ingress
+  namespace: istio-system
+  annotations:
+    kubernetes.io/ingress.allow-http: "true"
+    kubernetes.io/ingress.global-static-ip-name: "gke-autopilot-ext-ingress-ip"
+    networking.gke.io/managed-certificates: "gke-ingress-cert"
+    kubernetes.io/ingress.class: "gce"
+spec:
+  rules:
+  - host: flights.devairasia.com
+  - http:
+      paths:
+      - path: /*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: asm-ingressgateway
+            port:
+              number: 80

@@ -1,0 +1,15 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+    name: flights-gateway
+    namespace: istio-system
+spec:
+  selector:
+    asm: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*" # IMPORTANT: Must use wildcard here when using SSL, see note below
